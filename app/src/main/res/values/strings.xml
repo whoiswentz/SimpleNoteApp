@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimpleNoteApp</string>
+    <string name="list_notes_insert_textview_placeholder">Insert a note</string>
+    <string name="form_note_title_edittext">Title</string>
+    <string name="form_note_description_edittext">Description</string>
+    <string name="note_form_menu_save_title">Save</string>
 </resources>
