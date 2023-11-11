@@ -12,9 +12,23 @@ import stream.alchemists.simplenoteapp.dao.NotesDAO
 import stream.alchemists.simplenoteapp.models.Note
 
 class NoteFormActivity : AppCompatActivity() {
+    private lateinit var title: EditText
+    private lateinit var description: EditText
+    private var position: Int? = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_form)
+
+        title = findViewById(R.id.form_note_title_edittext)
+        description = findViewById(R.id.form_note_description_edittext)
+
+        val note = intent?.getSerializableExtra("note", Note::class.java)
+        position = intent?.getIntExtra("position", -1)
+        if (note != null && position != -1) {
+            title.setText(note.title)
+            description.setText(note.description)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -24,11 +38,10 @@ class NoteFormActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.note_form_menu_save) {
-            val title: EditText = findViewById(R.id.form_note_title_edittext)
-            val description: EditText = findViewById(R.id.form_note_description_edittext)
             val note = Note(title.text.toString(), description.text.toString())
             val intent = Intent()
             intent.putExtra("note", note)
+            intent.putExtra("position", position)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
