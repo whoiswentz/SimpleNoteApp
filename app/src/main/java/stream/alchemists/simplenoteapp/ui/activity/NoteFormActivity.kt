@@ -15,7 +15,7 @@ class NoteFormActivity : AppCompatActivity() {
     private lateinit var title: EditText
     private lateinit var description: EditText
     private var position: Int? = -1
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_form)

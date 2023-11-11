@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,20 +18,21 @@ import stream.alchemists.simplenoteapp.models.Note
 import stream.alchemists.simplenoteapp.ui.recyclerview.adapters.NoteListAdapter
 import stream.alchemists.simplenoteapp.ui.recyclerview.helpers.callbacks.NoteItemTouchHelperCallback
 import stream.alchemists.simplenoteapp.ui.recyclerview.listeners.OnItemClickItem
+import stream.alchemists.simplenoteapp.ui.viewmodel.NotesListViewModel
 
 class ListNotesActivity : AppCompatActivity() {
     private lateinit var notesList: RecyclerView
     private lateinit var insertNoteTextView: TextView
     private lateinit var noteListAdapter: NoteListAdapter
 
-    private val noteDao = NotesDAO()
+    private val viewModel: NotesListViewModel by viewModels { NotesListViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_notes)
 
         for (i in 0..5) {
-            noteDao.insert(Note("Title $i", "Description $i"))
+            viewModel.insert(Note("Title $i", "Description $i"))
         }
 
         findActivityElements()
@@ -62,7 +65,7 @@ class ListNotesActivity : AppCompatActivity() {
     }
 
     private fun configureRecyclerView() {
-        noteListAdapter = NoteListAdapter(noteDao.all())
+        noteListAdapter = NoteListAdapter(viewModel.all())
         notesList.layoutManager = LinearLayoutManager(this)
         notesList.adapter = noteListAdapter
 

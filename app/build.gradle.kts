@@ -1,3 +1,6 @@
+val lifecycle_version = "2.6.2"
+val activity_version = "1.8.0"
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -36,6 +39,11 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.activity:activity-ktx:$activity_version")
+
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
