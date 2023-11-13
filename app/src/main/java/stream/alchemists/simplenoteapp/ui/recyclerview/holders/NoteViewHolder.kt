@@ -19,9 +19,7 @@ class NoteViewHolder(
     init {
         noteItemTitle = view.findViewById(R.id.note_item_card_title)
         noteItemDescription = view.findViewById(R.id.note_item_card_description)
-        view.setOnClickListener { it ->
-            onItemClickItem.onItemClick(note, adapterPosition)
-        }
+        view.setOnClickListener { onItemClickItem.onItemClick(note, adapterPosition) }
     }
 
     fun bind(note: Note) {

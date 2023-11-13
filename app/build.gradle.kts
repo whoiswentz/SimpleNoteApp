@@ -1,9 +1,14 @@
-val lifecycle_version = "2.6.2"
-val activity_version = "1.8.0"
+val lifecycleVersion = "2.6.2"
+val activityVersion = "1.8.0"
+val roomVersion = "2.6.0"
+val navVersion = "2.7.5"
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {
@@ -29,6 +34,9 @@ android {
             )
         }
     }
+    dataBinding {
+        enable = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,11 +47,18 @@ android {
 }
 
 dependencies {
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.activity:activity-ktx:$activity_version")
+    implementation("androidx.activity:activity-ktx:$activityVersion")
 
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

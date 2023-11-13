@@ -2,7 +2,6 @@ package stream.alchemists.simplenoteapp.ui.recyclerview.helpers.callbacks
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import stream.alchemists.simplenoteapp.dao.NotesDAO
 import stream.alchemists.simplenoteapp.ui.recyclerview.adapters.NoteListAdapter
 
 class NoteItemTouchHelperCallback(

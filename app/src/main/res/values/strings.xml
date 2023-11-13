@@ -4,4 +4,6 @@
     <string name="form_note_title_edittext">Title</string>
     <string name="form_note_description_edittext">Description</string>
     <string name="note_form_menu_save_title">Save</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

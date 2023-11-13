@@ -1,14 +1,14 @@
 package stream.alchemists.simplenoteapp
 
 import android.app.Application
-import stream.alchemists.simplenoteapp.dao.NotesDAO
+import stream.alchemists.simplenoteapp.dao.NotesDao
+import stream.alchemists.simplenoteapp.dao.SimpleNoteDatabase
 
 class SimpleNoteApp : Application() {
-    lateinit var notesDAO: NotesDAO
+    val notesDao: NotesDao
+        get() = SimpleNoteDatabase.getNotesDao(this)
 
     override fun onCreate() {
         super.onCreate()
-
-        notesDAO = NotesDAO()
     }
-}a
+}
