@@ -1,7 +1,6 @@
 package stream.alchemists.simplenoteapp.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,12 +8,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.CoroutineScope
@@ -33,23 +32,12 @@ class NoteFormFragment : Fragment() {
 
     private val viewModel: NotesListViewModel by viewModels { NotesListViewModel.Factory }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
-        })
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_note_form, container, false)
+        setUpMenu(view)
         title = view.findViewById(R.id.form_note_title_edittext)
         description = view.findViewById(R.id.form_note_description_edittext)
 
@@ -58,13 +46,13 @@ class NoteFormFragment : Fragment() {
             description.setText(args.note!!.description)
         }
 
-        setUpMenu()
         return view
     }
 
-    private fun setUpMenu() {
+    private fun setUpMenu(view: View) {
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menu.clear()
                 menuInflater.inflate(R.menu.menu_note_form_save, menu)
             }
 
@@ -78,7 +66,7 @@ class NoteFormFragment : Fragment() {
                         description = description.text.toString())
                 }
                 mainScope.launch { viewModel.insert(note) }
-                findNavController().popBackStack()
+                view.findNavController().popBackStack()
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)

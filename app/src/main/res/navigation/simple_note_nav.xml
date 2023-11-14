@@ -9,7 +9,7 @@
         android:id="@+id/noteListFragment"
         android:name="stream.alchemists.simplenoteapp.ui.fragments.NoteListFragment"
         android:label="fragment_note_list"
-        tools:layout="@layout/fragment_note_list" >
+        tools:layout="@layout/fragment_note_list">
         <action
             android:id="@+id/navigate_to_note_form_fragment"
             app:destination="@id/noteFormFragment"
@@ -25,7 +25,9 @@
             android:id="@+id/navigate_to_note_list_fragment"
             app:destination="@id/noteListFragment"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/noteFormFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="position"
             android:defaultValue="-1"
@@ -36,4 +38,28 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="stream.alchemists.simplenoteapp.ui.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/navigate_from_login_to_notes_list"
+            app:destination="@id/noteListFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_login_fragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/noteListFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="stream.alchemists.simplenoteapp.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" />
 </navigation>
